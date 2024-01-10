@@ -16,6 +16,7 @@ import {
 import Features from '../components/features';
 import {dummyMessages} from '../constants';
 import {apiCall} from '../api/openAI';
+import Tts from 'react-native-tts';
 
 const App = () => {
   const [result, setResult] = useState('');
@@ -49,6 +50,7 @@ const App = () => {
   };
 
   const startRecording = async () => {
+    Tts.stop();
     setRecording(true);
     try {
       await Voice.start('en-GB'); // en-US
@@ -84,6 +86,7 @@ const App = () => {
           if (res.success) {
             setMessages([...res.data]);
             updateScrollView();
+            startTextToSpeech(res.data[res.data.length - 1]);
           } else {
             if (res.msg.includes('429')) {
               // Handle rate-limiting error
@@ -101,6 +104,18 @@ const App = () => {
     }
   };
 
+  const startTextToSpeech = message => {
+    if (!message.content.includes('http')) {
+      setSpeaking(true);
+      Tts.speak(message.content, {
+        androidParams: {
+          KEY_PARAM_PAN: -1,
+          KEY_PARAM_VOLUME: 0.5,
+          KEY_PARAM_STREAM: 'STREAM_MUSIC',
+        },
+      });
+    }
+  };
   const updateScrollView = () => {
     setTimeout(() => {
       scrollViewRef?.current?.scrollToEnd({animated: true});
@@ -109,9 +124,12 @@ const App = () => {
 
   const clear = () => {
     setMessages([]);
+    Tts.stop();
+    setSpeaking(false);
   };
 
   const stopSpeaking = () => {
+    Tts.stop();
     setSpeaking(false);
   };
 
@@ -121,6 +139,13 @@ const App = () => {
     Voice.onSpeechEnd = speechEndHandler;
     Voice.onSpeechResults = speechResultsHandler;
     Voice.onSpeechError = speechErrorHandler;
+
+    Tts.addEventListener('tts-start', event => console.log('start', event));
+    Tts.addEventListener('tts-progress', event =>
+      console.log('progress', event),
+    );
+    Tts.addEventListener('tts-finish', event => console.log('finish', event));
+    Tts.addEventListener('tts-cancel', event => console.log('cancel', event));
 
     return () => {
       // destroy the voice instance after component unmounts
