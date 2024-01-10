@@ -183,7 +183,7 @@ const App = () => {
                 className="space-y-4"
                 showsVerticalScrollIndicator={false}>
                 {messages.map((message, index) => {
-                  if (message.role === 'assistant') {
+                  if (message.role == 'assistant') {
                     if (message.content.includes('https')) {
                       // result is an ai image
                       return (
@@ -220,7 +220,9 @@ const App = () => {
                         <View
                           style={{width: wp(70)}}
                           className="bg-white p-2 rounded-xl rounded-tr-none">
-                          <Text style={{fontSize: wp(4)}}>
+                          <Text
+                            style={{fontSize: wp(4)}}
+                            className="text-neutral-800">
                             {message.content}
                           </Text>
                         </View>
