@@ -1,8 +1,8 @@
 # Jarvis AI
 
-<img src="https://github.com/Kunal-Vijay/Jarvis-AI/assets/79903746/87a0d44e-f385-4884-969f-1512b6e2d60d" width="450" height="1000">
+<img src="https://github.com/Kunal-Vijay/Jarvis-AI/assets/79903746/87a0d44e-f385-4884-969f-1512b6e2d60d" width="350" height="900">
 
-<img src="https://github.com/Kunal-Vijay/Jarvis-AI/assets/79903746/0202de56-d8bb-4f3a-bb2d-74ed00887c20" width="450" height="1000">
+<img src="https://github.com/Kunal-Vijay/Jarvis-AI/assets/79903746/0202de56-d8bb-4f3a-bb2d-74ed00887c20" width="350" height="900">
 
 
 ## Get Started
